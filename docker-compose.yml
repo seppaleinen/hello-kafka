@@ -13,17 +13,37 @@ services:
     environment:
       ZOOKEEPER_IP: zookeeper
       KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
-    networks:
-      - kafka-net
 
+  kafka-create-topic:
+    image: ches/kafka
+    depends_on:
+      - zookeeper
+      - kafka
+    links:
+      - zookeeper:zookeeper
+      - kafka:kafka
+    command: kafka-topics.sh --create --topic receiver.t --replication-factor 1 --partitions 1 --zookeeper zookeeper:2181
+
+#  kafka-producer:
+#    image: ches/kafka
+#    depends_on:
+#      - kafka
+#      - kafka-create-topic
+#    links:
+#      - kafka:kafka
+#    command: kafka-console-producer.sh --topic receiver.t --broker-list kafka:9092
+#
+#  kafka-consumer:
+#    image: ches/kafka
+#    depends_on:
+#      - kafka
+#      - kafka-create-topic
+#      - kafka-producer
+#    links:
+#      - kafka:kafka
+#    command: kafka-console-consumer.sh --topic receiver.t --from-beginning --bootstrap-server kafka:9092
 
   zookeeper:
     image: zookeeper:3.4
     ports:
       - "2181:2181"
-    networks:
-      - kafka-net
-
-networks:
-  kafka-net:
-

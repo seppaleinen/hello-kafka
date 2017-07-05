@@ -19,28 +19,29 @@ public class SenderConfig {
     private String bootstrapServers;
 
     @Bean
-    public Map<String, Object> producerConfigs() {
+    Map<String, Object> producerConfigs() {
         Map<String, Object> props = new HashMap<>();
 
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 3000);
 
         return props;
     }
 
     @Bean
-    public ProducerFactory<String, String> producerFactory() {
+    ProducerFactory<String, String> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate() {
+    KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
-    public Sender sender() {
+    Sender sender() {
         return new Sender();
     }
 }
