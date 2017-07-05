@@ -1,0 +1,29 @@
+version: "2"
+
+services:
+  kafka:
+    image: ches/kafka
+    ports:
+      - "9093:9092"
+      - "7203:7203"
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      ZOOKEEPER_IP: zookeeper
+      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+    networks:
+      - kafka-net
+
+
+  zookeeper:
+    image: zookeeper:3.4
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
+
