@@ -1,6 +1,7 @@
 package se.david.kafka;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +24,6 @@ import se.david.kafka.producer.Sender;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EmbeddedKafkaIntegrationTest {
-    private static final String SENDER_TOPIC = "sender.t";
     private static final String RECEIVER_TOPIC = "receiver.t";
 
     @Autowired
@@ -39,7 +39,6 @@ public class EmbeddedKafkaIntegrationTest {
     public static KafkaEmbedded embeddedKafka = new KafkaEmbedded(
             1,
             true,
-            SENDER_TOPIC,
             RECEIVER_TOPIC
     );
 
@@ -68,8 +67,8 @@ public class EmbeddedKafkaIntegrationTest {
     public void testReceive() throws Exception {
         sender.send(RECEIVER_TOPIC, "Hello Spring Kafka!");
 
-        receiver.getLatch().await(10000, TimeUnit.MILLISECONDS);
+        receiver.getLatch().await(5000, TimeUnit.MILLISECONDS);
         // check that the message was received
-        assertThat(receiver.getLatch().getCount()).isEqualTo(0);
+        assertEquals(0, receiver.getLatch().getCount());
     }
 }

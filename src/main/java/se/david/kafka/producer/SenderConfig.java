@@ -17,6 +17,8 @@ public class SenderConfig {
 
     @Value("${kafka.bootstrap-servers}")
     private String bootstrapServers;
+    @Value("${kafka.producer}")
+    private String producerEndpoint;
 
     @Bean
     Map<String, Object> producerConfigs() {
