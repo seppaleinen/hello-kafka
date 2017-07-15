@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DockerizedKafkaIntegrationTest {
+public class DockerizedKafkaIntegrationIT {
     private static final String RECEIVER_TOPIC = "receiver.t";
 
     @Autowired

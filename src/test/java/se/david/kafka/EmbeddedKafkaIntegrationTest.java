@@ -1,6 +1,5 @@
 package se.david.kafka;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.concurrent.TimeUnit;
@@ -49,7 +48,6 @@ public class EmbeddedKafkaIntegrationTest {
         // override the property in application.properties
         System.setProperty("kafka.bootstrap-servers", kafkaBootstrapServers);
     }
-
 
     @Before
     public void setUp() throws Exception {
