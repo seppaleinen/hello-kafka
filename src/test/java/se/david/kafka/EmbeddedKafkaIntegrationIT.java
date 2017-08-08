@@ -22,7 +22,7 @@ import se.david.kafka.producer.Sender;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EmbeddedKafkaIntegrationTest {
+public class EmbeddedKafkaIntegrationIT {
     private static final String RECEIVER_TOPIC = "receiver.t";
 
     @Autowired
