@@ -65,8 +65,8 @@ public class EmbeddedKafkaIntegrationIT {
     public void testReceive() throws Exception {
         sender.send(RECEIVER_TOPIC, "Hello Spring Kafka!");
 
-        receiver.getLatch().await(5000, TimeUnit.MILLISECONDS);
+        Thread.sleep(50);
         // check that the message was received
-        assertEquals(0, receiver.getLatch().getCount());
+        assertEquals("Hello Spring Kafka!", receiver.getReceivedMessage());
     }
 }
