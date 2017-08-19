@@ -1,6 +1,7 @@
 package se.david.kafka;
 
-import static org.junit.Assert.assertEquals;
+import static org.awaitility.Awaitility.await;
+import static org.hamcrest.CoreMatchers.is;
 
 import java.util.concurrent.TimeUnit;
 
@@ -63,10 +64,14 @@ public class EmbeddedKafkaIntegrationIT {
 
     @Test
     public void testReceive() throws Exception {
-        sender.send(RECEIVER_TOPIC, "Hello Spring Kafka!");
+        String message = "Hello Spring Kafka!";
 
-        Thread.sleep(50);
-        // check that the message was received
-        assertEquals("Hello Spring Kafka!", receiver.getReceivedMessage());
+        sender.send(RECEIVER_TOPIC, message);
+
+        await()
+                .pollDelay(1, TimeUnit.MILLISECONDS)
+                .pollInterval(1, TimeUnit.MILLISECONDS)
+                .atMost(100, TimeUnit.MILLISECONDS)
+                .until(receiver::getReceivedMessage, is(message));
     }
 }
