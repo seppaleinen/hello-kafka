@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.listener.MessageListenerContainer;
 import org.springframework.kafka.test.rule.KafkaEmbedded;
@@ -22,6 +23,7 @@ import se.david.kafka.producer.Sender;
 
 import java.util.concurrent.TimeUnit;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.CoreMatchers.is;
@@ -67,7 +69,8 @@ public class IntegrationTest {
 
     @Test
     public void test() {
-        when().get("/kafka/message")
+        given().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE).
+                when().get("/kafka/message")
                 .then()
                 .statusCode(HttpStatus.OK.value());
 
