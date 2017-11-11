@@ -40,7 +40,7 @@ public class IntegrationTest {
     private Sender sender;
     @SpyBean
     private Receiver receiver;
-    @Value("topic.receiver")
+    @Value("${topic.receiver}")
     private String topic;
 
     @BeforeEach
