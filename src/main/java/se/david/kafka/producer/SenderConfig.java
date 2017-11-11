@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 public class SenderConfig {
@@ -36,12 +37,8 @@ public class SenderConfig {
     }
 
     @Bean
+    @Transactional
     KafkaTemplate<String, String> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
-    }
-
-    @Bean
-    Sender sender() {
-        return new Sender();
     }
 }
