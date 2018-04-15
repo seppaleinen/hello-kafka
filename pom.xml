@@ -9,7 +9,7 @@
         <version>2.0.0.RELEASE</version>
         <relativePath/>
     </parent>
-    
+
     <groupId>se.david</groupId>
     <artifactId>hello-kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
